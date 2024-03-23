@@ -1,4 +1,6 @@
-import random, keyboard, time
+import random
+import keyboard
+import time
 
 def get_interval(interval):
     if not interval:
@@ -31,10 +33,16 @@ def main():
 
     return interval, keys
 
-
 if __name__ == '__main__':
     interval, keys = main()
 
     while True:
+        if keyboard.is_pressed('p'):  # Check if 'p' key is pressed
+            print("Script paused. Press 'p' again to resume.")
+            while keyboard.is_pressed('p'):  # Wait for 'p' to be released before resuming
+                time.sleep(0.1)
+            while not keyboard.is_pressed('p'):  # Wait for 'p' to be pressed again to resume
+                time.sleep(0.1)
+            print("Resuming script...")
         action(keys)
         time.sleep(get_interval(interval))
